@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.0"
+    id 'org.jetbrains.kotlin.plugin.compose'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -44,9 +47,6 @@ android {
         enable true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.2.0'
-    }
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
@@ -74,4 +74,24 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
     implementation "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
     implementation "com.squareup.retrofit2:converter-moshi:$moshi_converter_version"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.7.0"
+
+    def nav_version = "2.7.7"
+
+    // Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    // Jetpack Compose Integration
+    implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    // Compose live data
+    implementation "androidx.compose.runtime:runtime-livedata:1.6.8"
 }

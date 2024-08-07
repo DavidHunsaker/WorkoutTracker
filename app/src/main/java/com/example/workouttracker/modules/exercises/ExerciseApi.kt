@@ -1,8 +1,8 @@
 package com.example.workouttracker.modules.exercises
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
-import retrofit2.Call
-import retrofit2.Response
+import kotlinx.parcelize.Parcelize
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,10 +15,13 @@ import retrofit2.http.Query
 interface ExerciseApi {
     @GET("exercises")
     suspend fun get(
-        @Query("offset") offset: Int? = null
+        @Query("muscle") muscle: String? = null,
+        @Query("difficulty") difficultyLevel: String? = null,
+        @Query("type") type: String? = null,
     ): List<ExerciseResponseDto>
 }
 
+@Parcelize
 data class ExerciseResponseDto(
     @Json(name = "name")
     val name: String,
@@ -37,7 +40,7 @@ data class ExerciseResponseDto(
 
     @Json(name = "instructions")
     val instructions: String,
-)
+): Parcelable
 
 enum class ExerciseType(val displayName: String) {
     CARDIO("Cardio"),

@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Workout Tracker</string>
+
+    <!--  Selection Screen  -->
+    <string name="selection_screen_title">To begin, select a category:</string>
+    <string name="browse_all">Browse All</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="selection_exercise_type">Exercise Type</string>
+    <string name="muscle_group">Muscle Group</string>
+
+    <!--  Exercise Details Screen  -->
+    <string name="details_exercise_type">Exercise type: %s</string>
+    <string name="details_muscle">Muscle: %s</string>
+    <string name="details_equipment">Equipment: %s</string>
+    <string name="details_difficulty">Difficulty: %s</string>
+    <string name="details_instructions_title">Instructions</string>
 </resources>

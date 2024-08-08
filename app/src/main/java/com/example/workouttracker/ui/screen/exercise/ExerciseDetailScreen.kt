@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.workouttracker.R
 import com.example.workouttracker.modules.exercises.ExerciseResponseDto
-import com.example.workouttracker.ui.screen.ListCategory
+import com.example.workouttracker.ui.screen.listScreen.ListCategory
 import com.example.workouttracker.ui.theme.WorkoutTrackerTheme
 
 @Preview(showSystemUi = true, showBackground = true)
@@ -36,8 +36,7 @@ fun ExerciseDetailScreen(
         "Stand up with your torso upright while holding a barbell at the wide outer handle. The palm of your hands should be facing forward. The elbows should be close to the torso. This will be your starting position. While holding the upper arms stationary, curl the weights forward while contracting the biceps as you breathe out. Tip: Only the forearms should move. Continue the movement until your biceps are fully contracted and the bar is at shoulder level. Hold the contracted position for a second and squeeze the biceps hard. Slowly begin to bring the bar back to starting position as your breathe in. Repeat for the recommended amount of repetitions.  Variations:  You can also perform this movement using an E-Z bar or E-Z attachment hooked to a low pulley. This variation seems to really provide a good contraction at the top of the movement. You may also use the closer grip for variety purposes."
     ),
     category: ListCategory = ListCategory.NONE,
-    onNavigateToListScreen: (ListCategory) -> Unit = {},
-    onNavigateToLandingScreen: () -> Unit = {}
+    onNavigateToListScreen: (ListCategory) -> Unit = {}
 ) {
     WorkoutTrackerTheme {
         Column(

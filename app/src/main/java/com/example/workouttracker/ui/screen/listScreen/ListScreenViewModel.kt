@@ -10,12 +10,12 @@ import com.example.workouttracker.modules.exercises.ExerciseResponseDto
 import com.example.workouttracker.modules.exercises.ExerciseType
 import com.example.workouttracker.modules.exercises.MuscleGroup
 import com.example.workouttracker.modules.network.retrofit.RetrofitApi.exercises
-import com.example.workouttracker.ui.screen.ListCategory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -32,16 +32,18 @@ class ListScreenViewModel: ViewModel() {
     @VisibleForTesting
     var listScreenJob: Job? = null
 
-    fun setUpUiState(category: ListCategory = ListCategory.NONE) {
-        _uiState.value = ListScreenUiState(listCategory = category, listCategoryTitle = category.displayName)
+    fun updateCategory(category: ListCategory = ListCategory.NONE) {
+        _uiState.value = uiState.value.copy(listCategory = category, listCategoryTitle = category.displayName)
     }
 
+    // Clear out all UI data and cancel job
     fun reset() {
         _uiState.value = ListScreenUiState()
         _exerciseItems.value = emptyList()
         resetListScreenJob()
     }
 
+    // Next up is being able to search by exercise name
     fun updateSearchState(searching: Boolean = false) {
         _uiState.value = _uiState.value.copy(isSearching = searching)
     }
@@ -58,6 +60,10 @@ class ListScreenViewModel: ViewModel() {
         _exerciseItems.value = emptyList()
     }
 
+    fun updateShowingDetail(showingDetail: Boolean = false) {
+        _uiState.value = _uiState.value.copy(showingDetail = showingDetail)
+    }
+
     private fun resetListScreenJob() {
         listScreenJob?.cancel()
         listScreenJob = null
@@ -70,6 +76,9 @@ class ListScreenViewModel: ViewModel() {
         }
     }
 
+    /**
+     * This will request exercises by the current type selected and then post results out
+     */
     @VisibleForTesting
     suspend fun getListScreenData() = withContext(Dispatchers.IO) {
         // Validate user when auth is added
@@ -79,6 +88,10 @@ class ListScreenViewModel: ViewModel() {
             ListCategory.DIFFICULTY -> exercises.get(difficultyLevel = uiState.value.selectedDifficultyLevel?.name?.lowercase())
             ListCategory.NONE -> exercises.get()
         }
+
+        // We will return without posting results if the job is no longer active
+        if (this.isActive.not()) return@withContext
+
         _exerciseItems.postValue(results)
     }
 }

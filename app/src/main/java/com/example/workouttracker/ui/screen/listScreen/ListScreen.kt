@@ -1,4 +1,4 @@
-package com.example.workouttracker.ui.screen
+package com.example.workouttracker.ui.screen.listScreen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
@@ -23,7 +23,6 @@ import com.example.workouttracker.modules.exercises.DifficultyLevel
 import com.example.workouttracker.modules.exercises.ExerciseResponseDto
 import com.example.workouttracker.modules.exercises.ExerciseType
 import com.example.workouttracker.modules.exercises.MuscleGroup
-import com.example.workouttracker.ui.screen.listScreen.ListScreenViewModel
 
 enum class ListCategory(val displayName: String) {
     MUSCLE("Muscle"),
